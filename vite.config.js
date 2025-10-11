@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   resolve: {
     alias: {
@@ -19,9 +19,13 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-  base: '/web_project_around_react/', // 👈 Caminho correto para GitHub Pages / Já configurado, mas não é utilizado no npm run dev, apenas para npm run build e npm run preview
+  base:
+    mode === 'production'
+      ? '/web_project_around_react/' // para GitHub Pages, npm run build e npm run preview
+      : '/', // para desenvolvimento local (no npm run dev)
   build: {
-    outDir: 'docs', // onde o Vite colocará os arquivos após o build (padrão é "dist", mas para rodar no GitHub Pages sem deploy, há a opção de gerar a partir de docs, no próprio GitHub)
+    outDir: 'docs', // onde o Vite colocará os arquivos após o build (padrão é "dist",
+    // mas para rodar no GitHub Pages sem deploy, há a opção de gerar a partir de docs, no próprio GitHub)
     assetsDir: 'assets', //subpasta onde vão os arquivos estáticos (JS, CSS, imagens etc.)
   },
-});
+}));
