@@ -3,28 +3,38 @@ import Main from './Main/Main.jsx';
 import Footer from './Footer/Footer.jsx';
 
 import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 import myApi from '@utils/api.js';
 
 import CurrentUserContext from '@contexts/CurrentUserContext.js';
+import AuthContext from '@contexts/AuthContext.js';
+
+import Register from './Register/Register.jsx';
+import Login from './Login/Login.jsx';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute.jsx';
 
 /*
-Linha comentada para prevenir duplicação ao enviar cards iniciais. Executar apenas uma vez, quando necessário enviar os dados para a API.
+Linha comentada para prevenir duplicação ao enviar cards iniciais.
+Executar apenas uma vez, quando necessário enviar os dados para a API.
 // envia meus cards iniciais
 // myApi.createInitialCards();
 */
 
 function App() {
-  // Estado para armazenar os cartões do usuário
-  const [cards, setCards] = useState([]);
+  // Status de login
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  // Estado para armazenar as informações do usuário atual
+  // Informações de perfil do usuário atual
   const [currentUser, setCurrentUser] = useState({});
 
-  // Estado para armazenar o popup atual, (não utilizado neste arquivo, mas necessário para manter a estrutura do código)
+  // Cartões do usuário
+  const [cards, setCards] = useState([]);
+
+  // Status do popup
   const [popup, setPopup] = useState(null);
 
-  // Obtém as informações e cartões do usuário atual do servidor quando o componente é montado; atualiza os estados de usuário e dos cartões com os dados retornados pela API - em Promisse.all
+  // Montagem inicial do aplicativo: mount-only
   useEffect(() => {
     async function fetchData() {
       try {
@@ -41,29 +51,29 @@ function App() {
     fetchData();
   }, []);
 
-  // Função para atualizar as informações do usuário, retorna uma Promise para que o tratamento de erro seja feito por quem chamou
+  // Atualiza o perfil do usuário
   const handleUpdateUser = async (userData) => {
     const updatedUserData = await myApi.updateProfileInfo(userData);
     setCurrentUser(updatedUserData); // atualiza o estado do usuário atual com os dados retornados pela API
   };
 
-  // Função para atualizar a foto do perfil, retorna uma Promise para que o tratamento de erro seja feito por quem chamou
+  // Atualiza a foto de perfil
   const handleUpdateAvatar = async (avatarData) => {
     const updatedAvatarData = await myApi.updateProfileAvatar(avatarData);
     setCurrentUser((prevUser) => ({
       ...prevUser, // mantém os dados anteriores do usuário
-      avatar: updatedAvatarData.avatar, // atualiza apenas a foto do perfil
+      avatar: updatedAvatarData.avatar, // e atualiza apenas a foto do perfil
     }));
   };
 
-  // Função para lidar com o evento de curtir/descurtir um cartão: ela recebe o cartão atual como argumento e verifica se ele já foi curtido ou não, se o cartão já foi curtido, a função envia uma solicitação para a API para remover o like, caso contrário, envia uma solicitação para adicionar o like - após a solicitação, atualiza o estado dos cartões com os dados retornados pela API
+  // Curte e descurte cards
   const handleCardLike = async (card) => {
     try {
       // Verifica, mais um vez, se o cartão já foi curtido - é verificado no componente Card, mas é uma boa prática verificar novamente aqui
       const isLiked = card.isLiked;
 
-      // Envia uma solicitação para a API e obtém os dados do cartão atualizados
-      // !isLiked = ação inversa do estado atual de curtida - corresponde à shouldLike no método toggleLikeCard
+      // !isLiked = ação inversa do estado atual de curtida - corresponde à
+      // shouldLike no método toggleLikeCard
       const updatedCard = await myApi.toggleLikeCard(card._id, !isLiked);
 
       setCards((prevCards) =>
@@ -76,44 +86,55 @@ function App() {
     }
   };
 
-  // Função para lidar com a exclusão de um cartão: ela recebe o cartão atual como argumento e envia uma solicitação para a API para excluir o cartão, após a solicitação, atualiza o estado dos cartões removendo o cartão excluído
+  // Exclui cards
   const handleCardDelete = async (card) => {
     await myApi.deleteCard(card._id);
     setCards((stateCards) =>
       stateCards.filter(
         (currentCardInFilter) => currentCardInFilter._id !== card._id
       )
-    ); // aplica filter para remover o card em questão da lista
+    ); // remove o card excluído do estado
   };
 
-  // Função para lidar com o envio de um novo cartão: ela recebe os dados do cartão como argumento, envia uma solicitação para a API para criar o novo cartão e, após a solicitação, atualiza o estado dos cartões adicionando o novo cartão ao início da lista - a função é chamada no componente NewCard quando o formulário é enviado, deve ser assíncrona para lidar com a Promise retornada pela API - isso garante que o novo cartão apareça imediatamente na interface do usuário
+  // Adiciona novo cartão no início da lista de cards
   const handleAddPlaceSubmit = async (cardData) => {
     const newCardData = await myApi.createNewCard(cardData);
-    setCards([newCardData, ...cards]); // adiciona o novo cartão ao início da lista de cartões
+    setCards([newCardData, ...cards]);
   };
 
-  // Função para abrir o popup atual, ela recebe um objeto popup que contém os dados do popup a ser aberto
+  // Abre popup
   const handleOpenPopup = (popup) => {
     setPopup(popup);
   };
 
-  // Função para fechar o popup atual, limpando o estado do popup
+  // Fecha popup
   const handleClosePopup = () => {
     setPopup(null);
   };
 
   return (
-    // Provedor do contexto para compartilhar o usuário atual com os componentes filhos
-    <CurrentUserContext.Provider
+    // Provedores de contexto para compartilhar dados de login e dados do usuário atual com componentes filhos
+    <AuthContext.Provider
       value={{
-        currentUser, // objeto com dados do usuário
-        handleUpdateUser, // função para atualizar infos de perfil do usuário
-        handleUpdateAvatar, // função para atualizar a foto de perfil do usuário
-        handleAddPlaceSubmit, // função para adicionar novo card
+        loggedIn, // booleano de estado para status de login
+      }}
+    >
+      <CurrentUserContext.Provider
+        value={{
+          currentUser,
+          handleUpdateUser,
+          handleUpdateAvatar,
+          handleAddPlaceSubmit,
       }}
     >
       <div className="page">
-        <Header />
+          <Header onSignOut={onSignOut} />
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
         <Main
           popup={popup}
           onOpenPopup={handleOpenPopup}
@@ -122,9 +143,42 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
         />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/signin"
+              element={
+                <Login
+                />
+              }
+            />
+
+            <Route
+              path="/signup"
+              element={
+                <Register
+                />
+              }
+            />
+
+            <Route
+              path="*"
+              element={
+                loggedIn ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Navigate to="/signin" replace />
+                )
+              }
+            />
+          </Routes>
+
         <Footer />
       </div>
     </CurrentUserContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
