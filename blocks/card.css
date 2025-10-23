@@ -1,3 +1,16 @@
+/* ===========================================
+   🃏 CARD
+   Estrutura individual de cada item exibido
+   na seção de cards. Contém imagem, nome,
+   botão de curtida e botão de exclusão.
+   Bloco principal: .card
+=========================================== */
+
+/* ===========================================
+   🔹 BASE
+   (configurações gerais do bloco card)
+=========================================== */
+
 .card {
   margin: 0;
   padding: 0;
@@ -10,6 +23,12 @@
   position: relative;
 }
 
+/* ===========================================
+   🧩 ELEMENTOS DO BLOCO
+   (componentes internos do card)
+=========================================== */
+
+/* ----- IMAGEM ----- */
 .card__image {
   width: 282px;
   height: 282px;
@@ -23,6 +42,7 @@
   opacity: 0.95;
 }
 
+/* ----- BOTÃO DE EXCLUSÃO ----- */
 .card__trash-btn {
   width: 18px;
   height: 19.3px;
@@ -53,6 +73,7 @@
   transform: translate(-50%, -50%);
 }
 
+/* ----- CONTAINER DE TEXTO ----- */
 .card__text {
   display: flex;
   align-items: center;
@@ -63,6 +84,7 @@
   border-bottom-right-radius: 10px;
 }
 
+/* ----- NOME DO CARD ----- */
 .card__name {
   margin: 0;
   color: #000000;
@@ -76,6 +98,7 @@
   text-rendering: optimizeLegibility;
 }
 
+/* ----- BOTÃO DE CURTIDA ----- */
 .card__like-btn {
   background-image: url(/images/like-btn.svg);
   width: 21px;
@@ -89,6 +112,7 @@
   opacity: 0.5;
 }
 
+/* ----- BOTÃO DE CURTIDA ATIVO ----- */
 .card__like-btn_active {
   background-image: url(/images/like-btn-black.svg);
   width: 21px;

@@ -1,6 +1,17 @@
+/* ============================================
+   📄 PAGE
+   Layout estrutural principal da página:
+   limites máximos, margens e espaçamentos
+   do conteúdo, cabeçalho e rodapé.
+   Regras responsivas para diferentes
+   larguras de tela (desktop, tablet e mobile).
+============================================= */
+
+/* ----- Estrutura base ----- */
+
 .page {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 1280px; /* Largura máxima do container */
+  margin: 0 auto; /* Centraliza horizontalmente */
   font-family: 'Inter', Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,6 +22,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+/* ----- Blocos internos ----- */
 
 .page__header {
   display: flex;
@@ -39,6 +52,11 @@
   margin: 0 auto;
 }
 
+/* ===========================================
+   📱 RESPONSIVIDADE
+=========================================== */
+
+/* ----- TABLET ----- */
 @media screen and (min-width: 641px) and (max-width: 960px) {
   /*800px*/
 
@@ -48,26 +66,23 @@
   }
 
   .page__header {
-    max-width: 660px; /*880*960 = 1280x*/
+    max-width: 660px; /* 880*960 = 1280x, proporcional a 880px em 1280px */
   }
 
   .page__content {
-<<<<<<< Updated upstream
-    max-width: 660px; /*880*960 = 1280x*/
-=======
     max-width: 660px;
   }
 
   .page__form {
     max-width: 660px;
->>>>>>> Stashed changes
   }
 
   .page__footer {
-    max-width: 660px; /*880*960 = 1280x*/
+    max-width: 660px;
   }
 }
 
+/* ----- MOBILE ----- */
 @media screen and (min-width: 320px) and (max-width: 640px) {
   /*320px*/
 
@@ -77,7 +92,7 @@
   }
 
   .page__header {
-    max-width: 440px; /*880*640 = 1280x*/
+    max-width: 440px;
     padding-top: 28px;
   }
 

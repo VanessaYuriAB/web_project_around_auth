@@ -1,3 +1,10 @@
+/* =====================================
+   📄 BODY
+   Responsável por definir o estilo base
+   do corpo da página, aplicando o fundo
+   geral da aplicação.
+===================================== */
+
 body {
-  background-color: #000000;
+  background-color: #000000; /* Fundo preto padrão do layout */
 }
