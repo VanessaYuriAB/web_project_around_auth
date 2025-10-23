@@ -25,6 +25,11 @@ Executar apenas uma vez, quando necessário enviar os dados para a API.
 
 function App() {
   const navigate = useNavigate();
+
+  // Controle de renderização do tooltip
+  const [tooltip, setTooltip] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   // Status de login
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -132,6 +137,7 @@ function App() {
       setCards(cardsData); // atualiza cartões
     }
   };
+
   // Manipulador para sign out
   const onSignOut = async () => {
     if (!loggedIn) return; // evita execução dupla, já que o efeito de montagem do app também chama esta função
@@ -202,6 +208,10 @@ function App() {
               path="/signin"
               element={
                 <Login
+                  tooltip={tooltip}
+                  setTooltip={setTooltip}
+                  isSuccess={isSuccess}
+                  setIsSuccess={setIsSuccess}
                 />
               }
             />
@@ -210,6 +220,10 @@ function App() {
               path="/signup"
               element={
                 <Register
+                  tooltip={tooltip}
+                  setTooltip={setTooltip}
+                  isSuccess={isSuccess}
+                  setIsSuccess={setIsSuccess}
                 />
               }
             />
