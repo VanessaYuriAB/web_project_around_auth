@@ -73,6 +73,7 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 210px;
+  text-rendering: optimizeLegibility;
 }
 
 .card__like-btn {
