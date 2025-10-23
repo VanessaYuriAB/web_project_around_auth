@@ -26,6 +26,12 @@
   padding-top: 40px;
 }
 
+.page__form {
+  max-width: 880px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
 .page__footer {
   padding-top: 67px;
   padding-bottom: 60px;
@@ -46,7 +52,15 @@
   }
 
   .page__content {
+<<<<<<< Updated upstream
     max-width: 660px; /*880*960 = 1280x*/
+=======
+    max-width: 660px;
+  }
+
+  .page__form {
+    max-width: 660px;
+>>>>>>> Stashed changes
   }
 
   .page__footer {
@@ -68,6 +82,10 @@
   }
 
   .page__content {
+    max-width: 440px;
+  }
+
+  .page__form {
     max-width: 440px;
   }
 
