@@ -40,10 +40,7 @@ function Register({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
       // abrir e fechar instantaneamente, pois o componente Register seria desmontado
       // ao navegar para /signin
     }, // onSuccess
-    (error) => {
-      console.error(
-        `Erro ao registrar usuário: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
-      );
+    () => {
       setIsSuccess(false); // define o tooltip de falha
       setTooltip(true); // renderiza a tela com a msg de erro
     } // onError

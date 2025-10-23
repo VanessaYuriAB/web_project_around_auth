@@ -39,10 +39,7 @@ function Login({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
       setPassword('');
       validatorRef.current?.resetValidation(); // só reseta se existir
     }, // onSuccess
-    (error) => {
-      console.error(
-        `Erro ao logar: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
-      );
+    () => {
       setIsSuccess(false); // define o tooltip de falha
       setTooltip(true); // renderiza a tela com a msg de erro
     } // onError

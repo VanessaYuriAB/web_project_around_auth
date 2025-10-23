@@ -49,9 +49,6 @@ export const register = async (email, password) => {
       case 400:
         message = data.message || 'Um dos campos foi preenchido incorretamente';
         break;
-      case 409:
-        message = data.message || 'E-mail de usuário já cadastrado';
-        break;
       case 500:
         message = 'Erro interno do servidor';
         break;
@@ -61,7 +58,7 @@ export const register = async (email, password) => {
 
     throw new Error(message);
   } catch (error) {
-    console.error(`Erro ao cadastrar: ${error.message}`);
+    console.error(`Erro ao cadastrar usuário: ${error.message}`);
     throw error; // propagação do erro para o hook personalizado de envio
   }
 };

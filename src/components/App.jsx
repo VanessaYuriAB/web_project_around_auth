@@ -72,11 +72,8 @@ function App() {
         if (window.location.pathname !== '/') {
           navigate('/', { replace: true });
         }
-      } catch (error) {
+      } catch {
         if (!isMounted) return;
-        console.error(
-          `Erro ao validar token e obter email: \n Erro: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
-        );
         // Se o token for inválido ou ocorrer erro, desloga o usuário
         onSignOut();
       }
