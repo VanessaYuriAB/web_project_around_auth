@@ -47,17 +47,19 @@ function NewCard({ handleClosePopup, popup }) {
 
   return (
     <form
-      className="popup__container_add"
+      className="form form_popup form_add"
       name="add"
       id="new-card-form"
       noValidate
       onSubmit={handleSubmit}
       ref={formRef}
     >
-      <h3 className="popup__title-form_add">Novo local</h3>
+      <h3 className="form__title form__title_popup form__title_add">
+        Novo local
+      </h3>
       <input
-        className="popup__input-form_add"
-        id="place-input"
+        className="form__input form__input_popup form__input_add"
+        id="place-span"
         name="place" // o nome do input é place, mas o servidor espera name
         type="text"
         placeholder="Título"
@@ -66,29 +68,27 @@ function NewCard({ handleClosePopup, popup }) {
         required
         ref={placeRef}
         aria-label="Título do cartão"
-        ref={placeRef} // vincula a referência ao input, permitindo acessar o valor do input diretamente
       />
       <span
-        className="popup__input-error_add place-input-error"
+        className="form__span form__span_popup form__span_add place-span-error"
         id="card-name-error"
       />
       <input
-        className="popup__input-form_add"
-        id="link-input"
+        className="form__input form__input_popup form__input_add"
+        id="link-span"
         name="link"
         type="url"
         placeholder="Link de imagem"
         required
         ref={linkRef}
         aria-label="Link da imagem do cartão"
-        ref={linkRef} // vincula a referência ao input, permitindo acessar o valor do input diretamente
       />
       <span
-        className="popup__input-error_add link-input-error"
+        className="form__span form__span_popup form__span_add link-span-error"
         id="card-link-error"
       />
       <button
-        className="popup__btn-form_add"
+        className="form__button form__button_popup form__button_add"
         type="submit"
         disabled={isLoading}
       >

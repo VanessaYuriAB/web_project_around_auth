@@ -1,8 +1,26 @@
+/* ===============================================
+   💬 POPUP
+   Estrutura responsável pela exibição de
+   janelas modais sobre o conteúdo principal.
+   Inclui a camada de fundo semitransparente,
+   o container de conteúdo e o botão de fechar.
+
+   🔹 Bloco principal: .popup
+   🔹 Utiliza modificadores no botão de fechamento:
+      - _card  → popup de imagem
+      - _photo → popup de avatar
+      - _trash → popup de exclusão
+================================================= */
+
+/* ---------------------------------------------
+   🔹 BASE
+   (container principal do popup)
+---------------------------------------------- */
+
 .popup {
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 1280px;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
@@ -11,202 +29,17 @@
   left: 0;
 }
 
+/* ------------------------------------------
+   🧩 ELEMENTOS DO BLOCO
+   (componentes internos do popup)
+------------------------------------------- */
+
+/* ----- CONTEÚDO ----- */
 .popup__content {
-  display: contents;
+  display: contents; /* permite que o conteúdo filho mantenha o layout original */
 }
 
-.popup__container_edt,
-.popup__container_add,
-.popup__container_trash,
-.popup__container_photo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 0px 25px 0px #00000026;
-  width: 430px;
-  height: 330px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  color: #000000;
-  z-index: 2;
-  margin-top: 195px;
-}
-
-.popup__container_trash {
-  height: 181px;
-  margin-top: 270px;
-}
-
-.popup__container_photo {
-  height: 272px;
-  margin-top: 224px;
-  border-width: 1px;
-}
-
-.popup__figure_card {
-  margin: 90px 0 0 40px;
-  height: max-content;
-}
-
-.popup__title-form_add,
-.popup__title-form_edt,
-.popup__title-form_trash,
-.popup__title-form_photo {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 1.21;
-  width: 330px;
-  margin: 34px 0 44px;
-}
-
-.popup__title-form_trash {
-  width: 358px;
-  margin-bottom: 38px;
-  line-height: 0.96;
-}
-
-.popup__title-form_photo {
-  margin: 34px 0 54px 36px;
-  line-height: 0.96;
-  align-self: flex-start;
-}
-
-.popup__input-form_edt,
-.popup__input-form_add,
-.popup__input-form_photo {
-  width: 358px;
-  height: calc(27.26px - (13px + 3px + 1px));
-  font-size: 14px;
-  line-height: 1.21;
-  vertical-align: top;
-  margin: 0;
-  padding: 3px 0 13px;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.popup__input-form_edt:last-of-type,
-.popup__input-form_add:last-of-type {
-  margin-top: 13px;
-}
-
-.popup__input-form_edt:invalid,
-.popup__input-form_add:invalid,
-.popup__input-form_photo:invalid {
-  border-bottom: 1px solid #ff0000;
-}
-
-.popup__input-form_edt:placeholder-shown,
-.popup__input-form_add:placeholder-shown,
-.popup__input-form_photo:placeholder-shown {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.popup__input-form_add:placeholder-shown:last-of-type {
-  margin-top: 30px;
-}
-
-.popup__input-form_edt:first-of-type:valid {
-  margin-bottom: calc(29.74px - 13px);
-}
-
-.popup__input-form_add:first-of-type:valid {
-  margin-bottom: calc(29.74px - 13px - 5px);
-}
-
-.popup__input-form_edt:last-of-type:valid {
-  margin-bottom: calc(48px - 31.34px);
-}
-
-.popup__input-form_edt::placeholder,
-.popup__input-form_add::placeholder,
-.popup__input-form_photo::placeholder {
-  color: #c4c4c4;
-  font-size: 14px;
-  line-height: 100%;
-}
-
-.popup__input-error_edt,
-.popup__input-error_add,
-.popup__input-error_photo {
-  width: 358px;
-  height: 17px;
-  font-size: 12px;
-  line-height: 100%;
-  color: #ff0000;
-  align-self: self-start;
-  margin-left: 36px;
-  padding-top: 5px;
-}
-
-.popup__image_card {
-  max-width: 75vw;
-  max-height: 75vh;
-  margin-bottom: 10px;
-}
-
-.popup__caption_card {
-  font-size: 12px;
-  line-height: 100%;
-}
-
-.popup__btn-form_edt,
-.popup__btn-form_add,
-.popup__btn-form_trash,
-.popup__btn-form_photo {
-  margin-top: 31.34px;
-  margin-bottom: 36.51px;
-  width: 358px;
-  min-height: 50.15px;
-  max-height: 50.15px;
-  border-radius: 2px;
-  border: none;
-  background-color: #000000;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.21;
-  text-align: center;
-  color: #ffffff;
-  padding: 4px 0 0;
-}
-
-.popup__btn-form_trash,
-.popup__btn-form_photo {
-  margin-top: 0;
-  margin-bottom: 36px;
-  min-height: 50px;
-  max-height: 50px;
-  line-height: 1.22;
-}
-
-.popup__btn-form_photo {
-  margin-top: 48px;
-}
-
-.popup__btn-form_edt:hover,
-.popup__btn-form_add:hover,
-.popup__btn-form_trash:hover,
-.popup__btn-form_photo:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
-
-.popup__btn-form_disabled {
-  opacity: 0.2;
-  color: #000000;
-  border: 1px solid #000000;
-  background-color: #ffffff;
-}
-
-/* Aplique este estilo somente ao elemento que tiver ambas as classes ao mesmo tempo. */
-.popup__btn-form_add.popup__btn-form_disabled {
-  margin-top: 40px;
-}
-
-.popup__btn-form_disabled:hover {
-  cursor: not-allowed;
-}
-
+/* ----- BOTÃO DE FECHAR ----- */
 .popup__icon-close-btn {
   width: 40px;
   height: 40px;
@@ -219,31 +52,41 @@
   border: none;
 }
 
-.popup__icon-close-btn_photo {
-  margin-top: 176px;
-}
-
-.popup__icon-close-btn_card {
-  margin-top: 41px;
-}
-
-.popup__icon-close-btn_trash {
-  margin-top: 223px;
-}
-
 .popup__icon-close-btn:hover {
   opacity: 0.6;
 }
 
+/* -------------------------------------------
+   🎛️ MODIFICADORES
+   (ajustes específicos de posicionamento
+   conforme o tipo de popup)
+-------------------------------------------- */
+
+.popup__icon-close-btn_photo {
+  /* Fechar popup de avatar */
+  margin-top: 176px;
+}
+
+.popup__icon-close-btn_card {
+  /* Fechar popup de imagem */
+  margin-top: 41px;
+}
+
+.popup__icon-close-btn_trash {
+  /* Fechar popup de exclusão */
+  margin-top: 223px;
+}
+
+/* ===========================================
+   📱 RESPONSIVIDADE
+=========================================== */
+
+/* ----- TABLET ----- */
 @media screen and (min-width: 641px) and (max-width: 960px) {
   /*800px*/
 
   .popup {
     max-width: 960px;
-  }
-
-  .popup__figure_card {
-    margin: 90px 0 0 36px;
   }
 
   .popup__icon-close-btn {
@@ -255,108 +98,12 @@
   }
 }
 
+/* ----- MOBILE ----- */
 @media screen and (min-width: 320px) and (max-width: 640px) {
   /*320px*/
 
   .popup {
     max-width: 640px;
-  }
-
-  .popup__container_edt,
-  .popup__container_add,
-  .popup__container_trash,
-  .popup__container_photo {
-    width: 282px;
-    height: 322px;
-    margin-top: 123px;
-    position: relative;
-    left: 15px;
-  }
-
-  .popup__container_trash {
-    height: 145px;
-  }
-
-  .popup__container_photo {
-    height: 230px;
-  }
-
-  .popup__figure_card {
-    margin: 136px 0 0 26px;
-  }
-
-  .popup__title-form_add,
-  .popup__title-form_edt,
-  .popup__title-form_trash,
-  .popup__title-form_photo {
-    font-size: 18px;
-    width: 238px;
-    margin: 25px 0 66px;
-  }
-
-  .popup__title-form_trash {
-    margin-bottom: 29px;
-  }
-
-  .popup__title-form_photo {
-    margin: 35px 0 40px 23px;
-  }
-
-  .popup__input-form_edt,
-  .popup__input-form_add,
-  .popup__input-form_photo {
-    width: 238px;
-  }
-
-  .popup__input-form_edt:last-of-type,
-  .popup__input-form_add:last-of-type {
-    margin-top: 13px;
-  }
-
-  .popup__input-form_edt:invalid,
-  .popup__input-form_add:invalid,
-  .popup__input-form_photo:invalid {
-    border-bottom: 1px solid #ff0000;
-  }
-
-  .popup__input-form_edt:placeholder-shown,
-  .popup__input-form_add:placeholder-shown,
-  .popup__input-form_photo:placeholder-shown {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  }
-
-  .popup__input-form_edt:first-of-type:valid,
-  .popup__input-form_add:first-of-type:valid {
-    margin-bottom: calc(29.74px - 13px - 5px);
-  }
-
-  .popup__input-form_edt:last-of-type:valid,
-  .popup__input-form_add:last-of-type:valid {
-    margin-bottom: calc(48px - 31.34px - 5px);
-  }
-
-  .popup__input-error_edt,
-  .popup__input-error_add,
-  .popup__input-error_photo {
-    width: 238px;
-    font-size: 10px;
-    line-height: 100%;
-    margin-left: 22px;
-  }
-
-  .popup__btn-form_edt,
-  .popup__btn-form_add,
-  .popup__btn-form_trash,
-  .popup__btn-form_photo {
-    margin-top: 31.34px;
-    margin-bottom: 25px;
-    width: 238px;
-    height: 46px;
-    font-size: 14px;
-  }
-
-  .popup__btn-form_trash {
-    margin-top: 0;
   }
 
   .popup__icon-close-btn {

@@ -42,17 +42,19 @@ function EditAvatar({ handleClosePopup, popup }) {
 
   return (
     <form
-      className="popup__container_photo"
+      className="form form_popup form_photo"
       name="photo"
       id="edit-avatar-form"
       noValidate
       onSubmit={handleSubmit}
       ref={formRef}
     >
-      <h3 className="popup__title-form_photo">Alterar a foto do perfil</h3>
+      <h3 className="form__title form__title_popup form__title_photo">
+        Alterar a foto do perfil
+      </h3>
       <input
-        className="popup__input-form_photo"
-        id="photo-input"
+        className="form__input form__input_popup form__input_photo"
+        id="photo-span"
         name="photo"
         type="url"
         placeholder="Link da foto"
@@ -61,11 +63,11 @@ function EditAvatar({ handleClosePopup, popup }) {
         aria-label="Link da foto do perfil"
       />
       <span
-        className="popup__input-error_photo photo-input-error"
+        className="form__span form__span_popup form__span_photo photo-span-error"
         id="avatar-photo-error"
       />
       <button
-        className="popup__btn-form_photo"
+        className="form__button form__button_popup form__button_photo"
         type="submit"
         disabled={isLoading}
       >

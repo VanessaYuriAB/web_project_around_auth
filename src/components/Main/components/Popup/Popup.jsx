@@ -39,14 +39,14 @@ export default function Popup(props) {
         {children}
       </div>
       <button
-        className={`icon-close-btn popup__icon-close-btn ${
+        className={`popup__icon-close-btn ${
           type === 'image' ? 'popup__icon-close-btn_card' : ''
         } ${type === 'delete' ? 'popup__icon-close-btn_trash' : ''} ${
           type === 'avatar' ? 'popup__icon-close-btn_photo' : ''
         }`}
         type="button"
-        aria-label="Botão de fechar"
         onClick={onClose}
+        aria-label="Botão de fechar"
       />
     </div>
   );

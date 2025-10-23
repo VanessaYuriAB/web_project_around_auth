@@ -24,4 +24,10 @@
 
 @import url(../blocks/footer.css);
 
+@import url(../blocks/popup.css);
+
+@import url(../blocks/popups.css);
+
+@import url(../blocks/figure.css);
+
 @import url(../blocks/info-tooltip.css);

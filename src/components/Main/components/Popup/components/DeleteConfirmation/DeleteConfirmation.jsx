@@ -19,15 +19,17 @@ function DeleteConfirmation({ handleClosePopup, handleCardDelete, card }) {
 
   return (
     <form
-      className="popup__container_trash"
+      className="form form_popup form_trash"
       name="trash"
       noValidate
       ref={formRef}
       onSubmit={handleSubmit}
     >
-      <h3 className="popup__title-form_trash">Tem certeza?</h3>
+      <h3 className="form__title form__title_popup form__title_trash">
+        Tem certeza?
+      </h3>
       <button
-        className="popup__btn-form_trash"
+        className="form__button form__button_popup form__button_trash"
         type="submit"
         disabled={isLoading}
       >

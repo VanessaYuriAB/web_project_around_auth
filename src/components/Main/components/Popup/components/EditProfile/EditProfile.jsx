@@ -43,17 +43,19 @@ function EditProfile({ handleClosePopup }) {
 
   return (
     <form
-      className="popup__container_edt"
+      className="form form_popup form_edt"
       name="edt"
       id="edit-profile-form"
       noValidate
       onSubmit={handleSubmit}
       ref={formRef}
     >
-      <h3 className="popup__title-form_edt">Editar perfil</h3>
+      <h3 className="form__title form__title_popup form__title_edt">
+        Editar perfil
+      </h3>
       <input
-        className="popup__input-form_edt"
-        id="name-input"
+        className="form__input form__input_popup form__input_edt"
+        id="name-span"
         name="name"
         type="text"
         placeholder="Nome"
@@ -65,12 +67,12 @@ function EditProfile({ handleClosePopup }) {
         aria-label="Nome do perfil"
       />
       <span
-        className="popup__input-error_edt name-input-error"
+        className="form__span form__span_popup form__span_edt name-span-error"
         id="profile-name-error"
       />
       <input
-        className="popup__input-form_edt"
-        id="about-input"
+        className="form__input form__input_popup form__input_edt"
+        id="about-span"
         name="about"
         type="text"
         placeholder="Sobre mim"
@@ -82,11 +84,11 @@ function EditProfile({ handleClosePopup }) {
         aria-label="Descrição do perfil"
       />
       <span
-        className="popup__input-error_edt about-input-error"
+        className="form__span form__span_popup form__span_edt about-span-error"
         id="profile-about-error"
       />
       <button
-        className="popup__btn-form_edt"
+        className="form__button form__button_popup form__button_edt"
         type="submit"
         disabled={isLoading}
       >
