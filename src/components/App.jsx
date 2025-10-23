@@ -47,9 +47,49 @@ function App() {
 
   // Montagem inicial do aplicativo: mount-only
   useEffect(() => {
+    let isMounted = true; // flag para verificar se o componente está montado:
+    // evita setState após desmontar
+
+    // Verifica se há um JWT no armazenamento local,
+    const jwt = localStorage.getItem('jwt');
+
+    // se não houver token, sai da função
+    if (!jwt) {
+      return;
+    }
+
+    // Valida token, loga, pega email do usuário e redireciona para '/'
+    async function getTokenAndEmail(jwt) {
+      try {
+        if (!isMounted) return; // verifica se o componente ainda está montado
+
+        const { data } = await auth.getContent(jwt);
+
+        setLoggedIn(true);
+        setEmailLogged(data.email);
+
+        // Só navega se estiver em outra rota
+        if (window.location.pathname !== '/') {
+          navigate('/', { replace: true });
+        }
+      } catch (error) {
+        if (!isMounted) return;
+        console.error(
+          `Erro ao validar token e obter email: \n Erro: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+        );
+        // Se o token for inválido ou ocorrer erro, desloga o usuário
+        onSignOut();
+      }
+    }
+
+    // Busca e seta dados de perfil e cards do usuário
+    // com infos retornadas pela API - em Promisse.all
     async function fetchData() {
       try {
         const [userData, cardsData] = await myApi.getServerUserAndCards();
+
+        if (!isMounted) return;
+
         setCurrentUser(userData);
         setCards(cardsData);
       } catch (error) {
@@ -59,13 +99,31 @@ function App() {
       }
     }
 
-    fetchData();
+    // Primeiro valida token e busca email; depois busca dados e cards do usuário
+    async function checkTokenAndMountApp() {
+      try {
+        await getTokenAndEmail(jwt);
+        await fetchData();
+      } catch (error) {
+        console.error(
+          `Erro durante o mount: \n Erro: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+        );
+      }
+    }
+
+    checkTokenAndMountApp();
+
+    return () => {
+      isMounted = false;
+    };
+    // Roda apenas no mount (jwt e navigate são lidos e usados dentro do efeito)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Atualiza o perfil do usuário
   const handleUpdateUser = async (userData) => {
     const updatedUserData = await myApi.updateProfileInfo(userData);
-    setCurrentUser(updatedUserData); // atualiza o estado do usuário atual com os dados retornados pela API
+    setCurrentUser(updatedUserData);
   };
 
   // Atualiza a foto de perfil
