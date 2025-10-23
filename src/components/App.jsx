@@ -5,7 +5,7 @@ import Footer from './Footer/Footer.jsx';
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
-import myApi from '@utils/api.js';
+import myApi from '@utils/Api.js';
 
 import CurrentUserContext from '@contexts/CurrentUserContext.js';
 import AuthContext from '@contexts/AuthContext.js';
