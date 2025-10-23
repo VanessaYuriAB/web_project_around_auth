@@ -138,7 +138,6 @@ function App() {
   // Curte e descurte cards
   const handleCardLike = async (card) => {
     try {
-      // Verifica, mais um vez, se o cartão já foi curtido - é verificado no componente Card, mas é uma boa prática verificar novamente aqui
       const isLiked = card.isLiked;
 
       // !isLiked = ação inversa do estado atual de curtida - corresponde à
@@ -174,6 +173,8 @@ function App() {
   // Cadastra usuários
   const handleRegistration = async ({ email, password }) => {
     await auth.register(email, password);
+    setIsSuccess(true); // define o tooltip de sucesso
+    setTooltip(true); // renderiza a tela com a msg de sucesso
     navigate('/signin', { replace: true });
   };
 
@@ -240,9 +241,9 @@ function App() {
           handleUpdateUser,
           handleUpdateAvatar,
           handleAddPlaceSubmit,
-      }}
-    >
-      <div className="page">
+        }}
+      >
+        <div className="page">
           <Header onSignOut={onSignOut} />
 
           <Routes>
@@ -250,14 +251,14 @@ function App() {
               path="/"
               element={
                 <ProtectedRoute>
-        <Main
-          popup={popup}
-          onOpenPopup={handleOpenPopup}
-          onClosePopup={handleClosePopup}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
+                  <Main
+                    popup={popup}
+                    onOpenPopup={handleOpenPopup}
+                    onClosePopup={handleClosePopup}
+                    cards={cards}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
+                  />
                 </ProtectedRoute>
               }
             />
@@ -298,9 +299,9 @@ function App() {
             />
           </Routes>
 
-        <Footer />
-      </div>
-    </CurrentUserContext.Provider>
+          <Footer />
+        </div>
+      </CurrentUserContext.Provider>
     </AuthContext.Provider>
   );
 }
