@@ -1,4 +1,4 @@
-// array para envio dos meus cards iniciais ao servidor
+// Array para envio dos meus cards iniciais ao servidor
 const myCards = [
   {
     place: 'Japão, Monte Fuji',
@@ -26,7 +26,7 @@ const myCards = [
   },
 ];
 
-// configs para prefixos dos forms edt, add e photo
+// Configs para prefixos dos forms edt, add, photo, register e login
 const configEdt = {
   formClassPrefix: 'edt',
 };
@@ -39,4 +39,19 @@ const configPhoto = {
   formClassPrefix: 'photo',
 };
 
-export { myCards, configEdt, configAdd, configPhoto };
+const configRegister = {
+  formClassPrefix: 'register',
+};
+
+const configLogin = {
+  formClassPrefix: 'login',
+};
+
+export {
+  myCards,
+  configEdt,
+  configAdd,
+  configPhoto,
+  configRegister,
+  configLogin,
+};
