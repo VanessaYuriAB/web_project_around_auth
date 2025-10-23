@@ -2,14 +2,14 @@ class FormValidator {
   constructor(config, formElement) {
     this._formElement = formElement;
 
-    // Usa prefixo para montar os seletores dinamicamente
+    // Prefixo para montar os seletores dinamicamente
     const prefix = config.formClassPrefix ? `_${config.formClassPrefix}` : '';
 
-    this._inputSelector = `.popup__input-form${prefix}`;
-    this._submitButtonSelector = `.popup__btn-form${prefix}`;
-    this._inputErrorClass = `popup__input-error${prefix}`;
+    this._inputSelector = `.form__input${prefix}`;
+    this._submitButtonSelector = `.form__button${prefix}`;
+    this._inputErrorClass = `form__span${prefix}`;
 
-    this._inactiveButtonClass = 'popup__btn-form_disabled'; // valor padrão
+    this._inactiveButtonClass = 'form__button_disabled'; // valor padrão
 
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
