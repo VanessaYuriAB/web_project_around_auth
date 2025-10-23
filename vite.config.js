@@ -1,10 +1,19 @@
+// Importa a função para definir a configuração do Vite
 import { defineConfig } from 'vite';
+
+// Plugin oficial do React para Vite (suporte a JSX, Fast Refresh, etc.)
 import react from '@vitejs/plugin-react';
+
+// Node.js path para resolver caminhos absolutos
 import path from 'path';
 
-// https://vite.dev/config/
+// Exporta a configuração do Vite
+// Recebe o "mode" (desenvolvimento ou produção) como parâmetro
 export default defineConfig(({ mode }) => ({
+  // Plugins usados no projeto
   plugins: [react()],
+
+  // Resolução de caminhos e aliases
   resolve: {
     alias: {
       /*global __dirname*/
@@ -15,17 +24,24 @@ export default defineConfig(({ mode }) => ({
       '@assets': path.resolve(__dirname, 'src/assets'),
     },
   },
+
+  // Configuração do servidor de desenvolvimento
   server: {
-    port: 3000,
-    open: true,
+    port: 3000, // porta do dev server
+    open: true, // abre o navegador automaticamente ao iniciar o servidor
   },
+
+  // Base path do projeto
   base:
     mode === 'production'
-      ? '/web_project_around_react/' // para GitHub Pages, npm run build e npm run preview
+      ? '/web_project_around_react/' // para produção, ex: GitHub Pages, ou npm run build/preview
       : '/', // para desenvolvimento local (no npm run dev)
+
+  // Configuração do build (geração de arquivos finais)
   build: {
     outDir: 'docs', // onde o Vite colocará os arquivos após o build (padrão é "dist",
-    // mas para rodar no GitHub Pages sem deploy, há a opção de gerar a partir de docs, no próprio GitHub)
-    assetsDir: 'assets', //subpasta onde vão os arquivos estáticos (JS, CSS, imagens etc.)
+    // mas para rodar no GitHub Pages sem deploy, há a opção de gerar a partir de docs,
+    // no próprio GitHub)
+    assetsDir: 'assets', // subpasta para arquivos estáticos (JS, CSS, imagens, etc.)
   },
 }));
