@@ -10,6 +10,8 @@ import myApi from '@utils/api.js';
 import CurrentUserContext from '@contexts/CurrentUserContext.js';
 import AuthContext from '@contexts/AuthContext.js';
 
+import * as auth from '@utils/auth.js';
+
 import Register from './Register/Register.jsx';
 import Login from './Login/Login.jsx';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute.jsx';
@@ -22,8 +24,12 @@ Executar apenas uma vez, quando necessário enviar os dados para a API.
 */
 
 function App() {
+  const navigate = useNavigate();
   // Status de login
   const [loggedIn, setLoggedIn] = useState(false);
+
+  // E-mail do usuário atual
+  const [emailLogged, setEmailLogged] = useState('');
 
   // Informações de perfil do usuário atual
   const [currentUser, setCurrentUser] = useState({});
@@ -102,6 +108,48 @@ function App() {
     setCards([newCardData, ...cards]);
   };
 
+  // Cadastra usuários
+  const handleRegistration = async ({ email, password }) => {
+    await auth.register(email, password);
+    navigate('/signin', { replace: true });
+  };
+
+  // Loga usuários
+  const handleLogin = async ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+
+    const data = await auth.authorize(email, password); // obtém o
+    // token da resposta da função authorize
+    if (data.token) {
+      onLogin(data.token, email); // atualiza estados e redireciona
+    }
+
+    const [userData, cardsData] = await myApi.getServerUserAndCards();
+    if (userData && cardsData) {
+      setCurrentUser(userData); // atualiza dados de perfil do usuário atual
+      setCards(cardsData); // atualiza cartões
+    }
+  };
+  // Manipulador para sign out
+  const onSignOut = async () => {
+    if (!loggedIn) return; // evita execução dupla, já que o efeito de montagem do app também chama esta função
+    localStorage.removeItem('jwt'); // remove o token do armazenamento local
+    setLoggedIn(false); // desabilita o login
+    setEmailLogged(''); // limpa o estado de e-mail de usuário logado
+    navigate('/signin', { replace: true }); // redireciona para página de login
+  };
+
+  // Manipulador para login
+  const onLogin = async (token, email) => {
+    localStorage.setItem('jwt', token); // salva o token no armazenamento local
+    setLoggedIn(true); // permite o login do usuário
+    setEmailLogged(email); // salva o e-mail do usuário no estado,
+    // compartilhado por contexto para acesso em todo o app
+    navigate('/', { replace: true }); // redireciona para a página principal
+  };
+
   // Abre popup
   const handleOpenPopup = (popup) => {
     setPopup(popup);
@@ -117,6 +165,9 @@ function App() {
     <AuthContext.Provider
       value={{
         loggedIn, // booleano de estado para status de login
+        handleRegistration, // função para registrar novo usuário
+        handleLogin, // função para armazenar dados de login
+        emailLogged, // estado para email logado atual
       }}
     >
       <CurrentUserContext.Provider
