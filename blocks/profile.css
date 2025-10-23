@@ -1,3 +1,16 @@
+/* ===========================================
+   👤 PROFILE (BLOCO INDEPENDENTE)
+   Representa o perfil do usuário.
+   Hierarquia de contexto (bloco base):
+   dentro de .content__profile
+=========================================== */
+
+/* ------------------------------------------
+   🖼️ FOTO DE PERFIL
+   (estrutura da imagem do perfil com
+   overlay editável)
+------------------------------------------- */
+
 .profile__photo {
   width: 120px;
   height: 120px;
@@ -5,7 +18,7 @@
   flex-shrink: 0;
 }
 
-.profile__photo_img {
+.profile__img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -13,7 +26,7 @@
   display: block;
 }
 
-.profile__photo_overlay {
+.profile__overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -25,13 +38,18 @@
   border: none;
 }
 
-.profile__photo:hover .profile__photo_overlay {
+.profile__photo:hover .profile__overlay {
   opacity: 0.8;
   background: #000000cc;
   background-image: url(/images/photo-edit-pin.svg);
   background-repeat: no-repeat;
   background-position: center;
 }
+
+/* ---------------------------------------------
+   🧾 INFORMAÇÕES DO PERFIL
+   (contém nome, descrição e botão de edição)
+---------------------------------------------- */
 
 .profile__infos {
   margin-left: 30px;
@@ -49,6 +67,51 @@
   ); /* 880px total width minus 120px for photo, 60px for two margins and 150px for add-btn */
 }
 
+.profile__name {
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 1.14;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  grid-area: name;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profile__edit-btn {
+  grid-area: edit-btn;
+  width: 24px;
+  height: 24px;
+  background-image: url(/images/edit-btn.svg);
+  background-position: center;
+  background-size: contain;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.profile__edit-btn:hover {
+  opacity: 0.6;
+}
+
+.profile__about {
+  margin: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.21;
+  text-rendering: optimizeLegibility;
+  grid-area: about;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* -------------------------------------------
+   ✏️ BOTÃO DE AÇÃO
+   (adicionar novo card)
+-------------------------------------------- */
+
 .profile__add-btn {
   margin-left: auto;
   min-width: 150px;
@@ -65,16 +128,22 @@
   opacity: 0.6;
 }
 
+/* ===========================================
+   📱 RESPONSIVIDADE
+=========================================== */
+
+/* ----- TABLET ----- */
 @media screen and (min-width: 641px) and (max-width: 960px) {
   /*800px*/
 
   .profile__infos {
     max-width: calc(
       660px - 120px - 60px - 150px
-    ); /* 660px total width minus 120px for photo, 60px for two margins and 150px for add-btn */
+    ); /* largura total de 660 px menos 120 px para foto, 60 px para duas margens e 150 px para botão de adição */
   }
 }
 
+/* ----- MOBILE GERAL ----- */
 @media screen and (min-width: 320px) and (max-width: 640px) {
   /*320*/
 
@@ -83,12 +152,42 @@
     gap: 14px 10px;
     max-width: calc(
       440px - 19px - 19px
-    ); /* 440px total width minus 19px for each side margin */
+    ); /* largura total de 440 px menos 19 px para cada margem lateral */
   }
 
   .profile__add-btn {
     margin-left: 0;
     width: 282px;
     background-image: url(/images/add-btn_282.svg);
+  }
+}
+
+/* ----- MOBILE MÉDIO ----- */
+@media screen and (min-width: 471px) and (max-width: 640px) {
+  /*infos*/
+  .profile__name {
+    font-size: 32px;
+  }
+
+  .profile__about {
+    font-size: 16px;
+  }
+}
+
+/* ----- MOBILE PEQUENO ----- */
+@media screen and (min-width: 320px) and (max-width: 470px) {
+  /*infos*/
+  .profile__name {
+    font-size: 22px;
+    line-height: 1.21;
+  }
+
+  .profile__about {
+    font-size: 14px;
+  }
+
+  .profile__edit-btn {
+    width: 18px;
+    height: 18px;
   }
 }
