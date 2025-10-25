@@ -5,9 +5,9 @@
 
 import { useRef, useEffect } from 'react';
 
-import rectangleTooltip from '@assets/rectangle.png';
-import unionTooltip from '@assets/union.png';
-import splitTooltip from '@assets/split.png';
+import rectangleTooltip from '@assets/tooltip-rectangle.png';
+import unionTooltip from '@assets/tooltip-union.png';
+import splitTooltip from '@assets/tooltip-split.png';
 
 function InfoTooltip(props) {
   // Desestruturação do objeto passado como props
