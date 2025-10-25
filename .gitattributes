@@ -1,1 +1,57 @@
+############################################################
+# 🌍 Regras gerais de formatação e final de linha (EOL)
+############################################################
+
+# Define padrão: todos os arquivos de texto usam LF (Unix)
 * text eol=lf
+
+
+############################################################
+# 🧠 Arquivos de texto — garantem consistência entre sistemas
+############################################################
+
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.html   text eol=lf
+*.css    text eol=lf
+*.scss   text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.env    text eol=lf
+*.env.example text eol=lf
+*.lock   text eol=lf
+*.txt    text eol=lf
+
+
+############################################################
+# 🖼️ Arquivos binários — impedem conversões de EOL
+############################################################
+
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.svg    binary
+*.ico    binary
+*.pdf    binary
+*.zip    binary
+*.tar    binary
+*.gz     binary
+*.mp4    binary
+*.webp   binary
+*.woff   binary
+*.woff2  binary
+
+
+############################################################
+# ⚙️ Outros arquivos de configuração comuns
+############################################################
+
+*.sh     text eol=lf
+*.bat    text eol=crlf
+*.ps1    text eol=crlf
+
