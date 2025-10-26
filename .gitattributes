@@ -1,15 +1,9 @@
 ############################################################
 # 🌍 Regras gerais de formatação e final de linha (EOL)
-############################################################
 
 # Define padrão: todos os arquivos de texto usam LF (Unix)
 * text eol=lf
-
-
-############################################################
 # 🧠 Arquivos de texto — garantem consistência entre sistemas
-############################################################
-
 *.js     text eol=lf
 *.jsx    text eol=lf
 *.ts     text eol=lf
@@ -25,13 +19,8 @@
 *.env.example text eol=lf
 *.lock   text eol=lf
 *.txt    text eol=lf
-
-
-############################################################
 # 🖼️ Arquivos binários — rastreados com Git LFS
 # Evitam conversão de EOL e corrupção de imagens
-############################################################
-
 *.png    filter=lfs diff=lfs merge=lfs -text
 *.jpg    filter=lfs diff=lfs merge=lfs -text
 *.jpeg   filter=lfs diff=lfs merge=lfs -text
@@ -46,12 +35,9 @@
 *.webp   filter=lfs diff=lfs merge=lfs -text
 *.woff   filter=lfs diff=lfs merge=lfs -text
 *.woff2  filter=lfs diff=lfs merge=lfs -text
-
-
-############################################################
 # ⚙️ Outros arquivos de configuração comuns
-############################################################
-
 *.sh     text eol=lf
 *.bat    text eol=crlf
 *.ps1    text eol=crlf
+vendor/fonts/*.ttf filter=lfs diff=lfs merge=lfs -text
+vendor/fonts/*.otf filter=lfs diff=lfs merge=lfs -text

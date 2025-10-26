@@ -76,8 +76,9 @@ function Register({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
           name="email"
           type="email"
           placeholder="E-mail"
-          minLength="10"
           required
+          pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$"
+          title="Digite um e-mail válido contendo apenas letras, números, sublinhados, pontos ou hífens (ex: nome.sobrenome@dominio.com)."
           value={newEmail}
           onChange={handleNewEmailChange}
           aria-label="E-mail do novo usuário"
@@ -92,9 +93,9 @@ function Register({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
           name="password"
           type="password"
           placeholder="Senha"
-          minLength="8"
-          maxLength="15"
           required
+          pattern="^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$"
+          title="Digite uma senha contendo pelo menos 8 caracteres, incluindo letra minúscula e número."
           value={newPassword}
           onChange={handleNewPasswordChange}
           aria-label="Senha do novo usuário"

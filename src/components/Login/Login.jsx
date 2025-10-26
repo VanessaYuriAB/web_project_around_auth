@@ -70,8 +70,9 @@ function Login({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
         name="email"
         type="email"
         placeholder="E-mail"
-        minLength="10"
         required
+        pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$"
+        title="Digite seu e-mail válido contendo apenas letras, números, sublinhados, pontos ou hífens (ex: nome.sobrenome@dominio.com)."
         value={email}
         onChange={handleEmailChange}
         aria-label="E-mail de loggin do usuário"
@@ -86,9 +87,9 @@ function Login({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
         name="password"
         type="password"
         placeholder="Senha"
-        minLength="8"
-        maxLength="15"
         required
+        pattern="^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$"
+        title="Digite sua senha contendo pelo menos 8 caracteres, incluindo letra minúscula e número."
         value={password}
         onChange={handlePasswordChange}
         aria-label="Senha de login do usuário"

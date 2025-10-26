@@ -21,6 +21,15 @@ class FormValidator {
   }
 
   _checkInputValidity(inputElement) {
+    // Limpa mensagens personalizadas anteriores
+    inputElement.setCustomValidity('');
+
+    // Se o padrão não for atendido e existir um title, use-o como mensagem
+    if (inputElement.validity.patternMismatch && inputElement.title) {
+      inputElement.setCustomValidity(inputElement.title);
+    }
+
+    // Atualiza o estado visual
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
