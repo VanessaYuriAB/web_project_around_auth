@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => ({
   // Base path do projeto
   base:
     mode === 'production'
-      ? '/web_project_around_react/' // para produção, ex: GitHub Pages, ou npm run build/preview
+      ? '/web_project_around_auth/' // para produção, ex: GitHub Pages, ou npm run build/preview > nome exato do repositório no GitHub
       : '/', // para desenvolvimento local (no npm run dev)
 
   // Configuração do build (geração de arquivos finais)
