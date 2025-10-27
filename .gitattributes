@@ -49,5 +49,3 @@
 *.bin    -text
 *.exe    -text
 *.dll    -text
-vendor/fonts/*.ttf filter=lfs diff=lfs merge=lfs -text
-vendor/fonts/*.otf filter=lfs diff=lfs merge=lfs -text
