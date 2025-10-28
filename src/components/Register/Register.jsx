@@ -77,8 +77,8 @@ function Register({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
           type="email"
           placeholder="E-mail"
           required
-          pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$"
-          title="Digite um e-mail válido contendo apenas letras, números, sublinhados, pontos ou hífens (ex: nome.sobrenome@dominio.com)."
+          pattern="^[a-zA-Z0-9_.\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+          title="Digite um e-mail válido contendo apenas letras, números, sublinhados, pontos ou hífens."
           value={newEmail}
           onChange={handleNewEmailChange}
           aria-label="E-mail do novo usuário"
@@ -95,7 +95,7 @@ function Register({ tooltip, setTooltip, isSuccess, setIsSuccess }) {
           placeholder="Senha"
           required
           pattern="^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$"
-          title="Digite uma senha contendo pelo menos 8 caracteres, incluindo letra minúscula e número."
+          title="Digite uma senha com, no mínimo, 8 caracteres - incluindo, pelo menos, uma letra minúscula e um número."
           value={newPassword}
           onChange={handleNewPasswordChange}
           aria-label="Senha do novo usuário"
