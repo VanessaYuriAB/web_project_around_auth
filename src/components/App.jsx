@@ -45,6 +45,9 @@ function App() {
   // Status do popup
   const [popup, setPopup] = useState(null);
 
+  // Estado para verificar autenticação ao montar o app
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
   // Montagem inicial do aplicativo: mount-only
   useEffect(() => {
     let isMounted = true; // flag para verificar se o componente está montado:
@@ -55,15 +58,16 @@ function App() {
 
     // se não houver token, sai da função
     if (!jwt) {
+      setCheckingAuth(false); // sem token, login falso
       return;
     }
 
     // Valida token, loga, pega email do usuário e redireciona para '/'
     async function getTokenAndEmail(jwt) {
       try {
-        if (!isMounted) return; // verifica se o componente ainda está montado
-
         const { data } = await auth.getContent(jwt);
+
+        if (!isMounted) return; // verifica se o componente ainda está montado
 
         setLoggedIn(true);
         setEmailLogged(data.email);
@@ -105,6 +109,10 @@ function App() {
         console.error(
           `Erro durante o mount: \n Erro: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
         );
+      } finally {
+        if (isMounted) {
+          setCheckingAuth(false); // finaliza verificação de autenticação
+        }
       }
     }
 
@@ -222,6 +230,17 @@ function App() {
     setPopup(null);
   };
 
+  // Enquanto estiver verificando o login, não renderiza o app,
+  // renderiza uma tela de carregamento
+  if (checkingAuth) {
+    return (
+      <div className="loading-screen">
+        <p className="loading-text">Carregando...</p>
+      </div>
+    );
+  }
+
+  // Depois que verificar, renderiza o app normalmente
   return (
     // Provedores de contexto para compartilhar dados de login e dados do usuário atual com componentes filhos
     <AuthContext.Provider
