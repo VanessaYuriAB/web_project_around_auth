@@ -212,10 +212,10 @@ Base URL: `https://se-register-api.en.tripleten-services.com/v1`
 - Redirecionamento automático para `/signin`, caso o token seja inválido:
   - Se o token não for fornecido ou fornecido sem o titular:
 
-  ![Erro_Token_1](./.github/images/erro-token-1.png)
+  ![Erro_Token_1](readme/images/erro-token-1.png)
   - Se o token for inválido:
 
-  ![Erro_Token_2](./.github/images/erro-token-2.png)
+  ![Erro_Token_2](readme/images/erro-token-2.png)
 
 ---
 
@@ -306,31 +306,31 @@ Abaixo estão as principais telas que compõem o fluxo completo de autenticaçã
 
 - Tela de Registro (`/signup`) 🧾
 
-![Register](./.github/images/register.png)
+![Register](readme/images/register.png)
 
 - Tela de Login (`/signin`) 🔐
 
-![Login](./.github/images/login.png)
+![Login](readme/images/login.png)
 
 - Tooltip de sucesso no cadastro do usuário ✅
 
-![Tooltip_Success](./.github/images/tooltip-success.png)
+![Tooltip_Success](readme/images/tooltip-success.png)
 
 - Tooltip de falha no cadastro do usuário ❌
 
-![Tooltip_Fail_Register_1](./.github/images/tooltip-fail-register1.png)
+![Tooltip_Fail_Register_1](readme/images/tooltip-fail-register1.png)
 
-![Tooltip_Fail_Register_2](./.github/images/tooltip-fail-register2.png)
+![Tooltip_Fail_Register_2](readme/images/tooltip-fail-register2.png)
 
 - Tooltip de falha no login ❌
 
-![Tooltip_Fail_Login_1](./.github/images/tooltip-fail-login1.png)
+![Tooltip_Fail_Login_1](readme/images/tooltip-fail-login1.png)
 
-![Tooltip_Fail_Login_2](./.github/images/tooltip-fail-login2.png)
+![Tooltip_Fail_Login_2](readme/images/tooltip-fail-login2.png)
 
 - Página autenticada com e-mail no Header 🏠
 
-![Home_Profile](./.github/images/home-profile.png)
+![Home_Profile](readme/images/home-profile.png)
 
 ### 📱 Visualização em dispositivos móveis
 
@@ -338,23 +338,23 @@ As telas abaixo mostram a responsividade da aplicação em resoluções mobile, 
 
 - Tela de Registro (`/signup`) 🧾
 
-![Register_Mobile](./.github/images/register-mobile.png)
+![Register_Mobile](readme/images/register-mobile.png)
 
 - Tela de Login (`/signin`) 🔐
 
-![Login_Mobile](./.github/images/login-mobile.png)
+![Login_Mobile](readme/images/login-mobile.png)
 
 - Tooltip de sucesso ✅
 
-![Tooltip_Success_Mobile](./.github/images/tooltip-success-mobile.png)
+![Tooltip_Success_Mobile](readme/images/tooltip-success-mobile.png)
 
 - Tooltip de falha ❌
 
-![Tooltip_Fail_Mobile](./.github/images/tooltip-fail-mobile.png)
+![Tooltip_Fail_Mobile](readme/images/tooltip-fail-mobile.png)
 
 - Página autenticada com e-mail no Header 🏠
 
-![Home_Profile_Mobile](./.github/images/home-profile-mobile.png)
+![Home_Profile_Mobile](readme/images/home-profile-mobile.png)
 
 ---
 
