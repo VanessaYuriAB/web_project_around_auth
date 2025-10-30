@@ -376,51 +376,61 @@ As telas abaixo mostram a responsividade da aplicação em resoluções mobile, 
 
 ### 🔐 Segurança e autenticação avançada:
 
-- implementar **refresh token** para renovação automática da sessão
+- Implementar `refresh token` para renovação automática da sessão
 
-- adicionar **expiração do token** com alerta ao usuário
+- Adicionar **expiração do token** com alerta ao usuário
 
-- incluir **logout automático** após tempo de inatividade
+- Incluir **logout automático** após tempo de inatividade
 
-- adotar **variáveis de ambiente (.env)** para proteger chaves e endpoints
+- Adotar **variáveis de ambiente (`.env`)** para proteger chaves e endpoints
 
 ### 💬 Experiência do usuário (UX/UI):
 
-- adicionar **animações suaves** nas transições de rotas e popups (`framer-motion`)
+- Implementar **ícone para abrir visualização do email logado e botão para logout** no header em mobile
 
-- implementar **dark mode** com persistência, de preferência no `localStorage`
+- Avaliar a aplicação de outras **configurações CSS padrão de tipografia**
 
-- mostrar **indicador visual de senha forte** no registro
+- Implementar **spinner de carregamento** com componente `<Loading />` para indicar carregamento da página
 
-- melhorar/especificar mensagens de erro (400, 401, 409, 500, etc.) exibidas pelo `InfoTooltip`
+- Adicionar **animações suaves** nas transições de rotas e popups (`framer-motion`)
+
+- Implementar **dark mode** com persistência (armazenamento no `localStorage`)
+
+- Mostrar **indicador visual de força de senha** no registro
+
+- Melhorar/especificar **mensagens de erro** (**400**, **401**, **409**, **500**, etc.) exibidas pelo `InfoTooltip`
 
 ### 🧱 Arquitetura e manutenção:
 
-- migrar o controle de autenticação para um **hook dedicado** (`useAuth`)
+- Avaliar a substituição das **imagens de logo e ícones** por **código SVG**
 
-- implementar **tratamento global de erros** com `ErrorBoundary`
+- Avaliar se as **imagens dos tooltips** devem ficar em `assets` ou em `public/images`
 
-- refatorar componentes de formulário em um **FormContainer** reutilizável
+- Migrar o controle de autenticação para um **hook dedicado** (`useAuth`)
+
+- Implementar **tratamento global de erros** com `ErrorBoundary`
+
+- Refatorar componentes de formulário em um **FormContainer** reutilizável
 
 ### 📱 Acessibilidade e responsividade:
 
-- revisar contraste e tamanho de fonte segundo as diretrizes WCAG
+- Verificar a **largura do bloco de informações de perfil** na transição de tablet para mobile - quando a tela se aproxima da largura mínima, os elementos ficam muito justos, sem espaçamento lateral adequado
 
-- adicionar **focus outlines** visíveis para navegação por teclado
+- Ajustar as **margens verticais dos inputs** nos formulários de adição e de foto, conforme os estados de validação - os elementos se movem quando o `span` de erro aparece ou desaparece
 
-- incluir **mensagens ARIA** para tooltips e alertas de erro
+- Adicionar **focus outlines** visíveis para navegação por teclado
 
 ### 🌐 Integrações e escalabilidade:
 
-- adicionar **recuperação de senha** via e-mail (`/forgot-password`)
+- Adicionar **recuperação de senha** via e-mail (`/forgot-password`)
 
-- permitir **edição de dados de login** (e-mail e senha) autenticada
+- Permitir **edição de dados de login** (e-mail e senha) autenticada
 
-- integrar **OAuth (Google/GitHub)** para login social
+- Integrar **OAuth (Google/GitHub)** para **login social**
 
 ### 📘 Documentação e apresentação:
 
-- adicionar **índice clicável** automático com links de navegação interna
+- Adicionar **índice clicável** automático com **links de navegação interna**
 
 ---
 
