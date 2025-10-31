@@ -158,7 +158,7 @@ src/
 │   └── useFormValidator.js
 │
 ├── utils/
-│   ├── api.js
+│   ├── Api.js
 │   ├── auth.js
 │   ├── constants.js
 │   └── FormValidator.js
@@ -173,7 +173,7 @@ src/
 
 | Hook               | Utilização                                                                            |
 | ------------------ | ------------------------------------------------------------------------------------- |
-| `useState`         | Controle de `loggedIn`, `emailLogged` e `currentUser`                                 |
+| `useState`         | Controle de `loggedIn`, `emailLogged`, `currentUser` e `checkingAuth`                 |
 | `useEffect`        | Verificação do token no carregamento inicial (`getTokenAndEmail`)                     |
 | `useContext`       | Acesso global a `AuthContext`                                                         |
 | `useRef`           | Reset e validação de formulários                                                      |
@@ -197,7 +197,7 @@ Base URL: `https://se-register-api.en.tripleten-services.com/v1`
 | `/users/me`             | `GET`                 | Validação de token e obtenção de e-mail     |
 | `/cards`, `/users` etc. | `GET/POST/PUT/DELETE` | Mantidos da API anterior (projeto em React) |
 
-📌 A autenticação é gerenciada por um módulo dedicado (`auth.js`), enquanto as demais requisições de dados permanecem em `api.js`, facilitando a manutenção e segurança do código.
+📌 A autenticação é gerenciada por um módulo dedicado (`auth.js`), enquanto as demais requisições de dados permanecem em `Api.js`, facilitando a manutenção e segurança do código.
 
 ---
 
@@ -244,14 +244,14 @@ Base URL: `https://se-register-api.en.tripleten-services.com/v1`
 | **Lint e formatação**       | ESLint (Flat Config) + Prettier                                                |
 | **Build**                   | Vite (bases automáticas para dev/prod, `outDir: docs`, aliases personalizados) |
 
-📌 Fetch API é utilizada em todas as requisições HTTP nos módulos `auth.js` e `api.js`, com headers e tratamento de respostas padronizados.
+📌 Fetch API é utilizada em todas as requisições HTTP nos módulos `auth.js` e `Api.js`, com headers e tratamento de respostas padronizados.
 
 📌 O `vite.config.js` foi configurado para alternar automaticamente a base do projeto conforme o ambiente:
 
 ```js
 base:
   mode === 'production'
-    ? '/web_project_around_react/' // para GitHub Pages
+    ? '/web_project_around_auth/' // para GitHub Pages
     : '/', // para ambiente local (npm run dev)
 ```
 
@@ -270,6 +270,24 @@ Implementação de registro, login e persistência de sessão utilizando token J
 
 ---
 
+### 🔁 Roteamento com HashRouter (React Router DOM)
+
+Para garantir compatibilidade com o ambiente de deploy — o **GitHub Pages**, que não suporta rotas internas de aplicações SPA com `BrowserRouter`.
+
+📌 Com o `HashRouter`, a aplicação funciona corretamente mesmo ao atualizar a página ou acessar rotas diretamente, utilizando URLs no formato:
+
+```
+https://vanessayuriab.github.io/web_project_around_auth/#/signin
+```
+
+_Essa abordagem evita erros de redirecionamento e garante que o React controle a navegação sem depender do servidor._
+
+💡 **Por que não usar `BrowserRouter`?**
+
+O `BrowserRouter` exige que o servidor esteja configurado para redirecionar todas as rotas para `index.html`, o que não é possível no **GitHub Pages**. Por isso, o `HashRouter` é a solução ideal para projetos hospedados nesse ambiente.
+
+---
+
 ## ✨ 5. Boas práticas implementadas (ES6+)
 
 - Uso de arrow functions e desestruturação
@@ -280,7 +298,7 @@ Implementação de registro, login e persistência de sessão utilizando token J
 
 - Renderizações condicionais com `&&` e ternários
 
-- Separação entre API pública (`auth.js`) e API privada (`api.js`)
+- Separação entre API pública (`auth.js`) e API privada (`Api.js`)
 
 - Validação declarativa via objetos de configuração, centralizados em `utils/constants.js`
 
