@@ -2,7 +2,7 @@ import Header from './Header/Header.jsx';
 import Main from './Main/Main.jsx';
 import Footer from './Footer/Footer.jsx';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 import myApi from '@utils/Api.js';
@@ -48,6 +48,19 @@ function App() {
   // Estado para verificar autenticação ao montar o app
   const [checkingAuth, setCheckingAuth] = useState(true);
 
+  // Manipulador para logout
+  const onSignOut = async () => {
+    if (!loggedIn) return; // evita execução dupla, já que o efeito de montagem do app também chama esta função
+    localStorage.removeItem('jwt'); // remove o token do armazenamento local
+    setLoggedIn(false); // desabilita o login
+    setEmailLogged(''); // limpa o estado de e-mail de usuário logado
+    navigate('/signin', { replace: true }); // redireciona para página de login
+  };
+
+  // Refs para evitar warnings de dependências no useEffect de montagem
+  const navigateRef = useRef(navigate);
+  const onSignOutRef = useRef(onSignOut);
+
   // Montagem inicial do aplicativo: mount-only
   useEffect(() => {
     let isMounted = true; // flag para verificar se o componente está montado:
@@ -74,12 +87,12 @@ function App() {
 
         // Só navega se estiver em outra rota
         if (window.location.pathname !== '/') {
-          navigate('/', { replace: true });
+          navigateRef.current('/', { replace: true }); // usa a ref para evitar dependência
         }
       } catch {
         if (!isMounted) return;
         // Se o token for inválido ou ocorrer erro, desloga o usuário
-        onSignOut();
+        onSignOutRef.current(); // usa a ref para evitar dependência
       }
     }
 
@@ -121,9 +134,7 @@ function App() {
     return () => {
       isMounted = false;
     };
-    // Roda apenas no mount (jwt e navigate são lidos e usados dentro do efeito)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // array vazio = roda só na montagem
 
   // Atualiza o perfil do usuário
   const handleUpdateUser = async (userData) => {
@@ -200,15 +211,6 @@ function App() {
       setCurrentUser(userData); // atualiza dados de perfil do usuário atual
       setCards(cardsData); // atualiza cartões
     }
-  };
-
-  // Manipulador para sign out
-  const onSignOut = async () => {
-    if (!loggedIn) return; // evita execução dupla, já que o efeito de montagem do app também chama esta função
-    localStorage.removeItem('jwt'); // remove o token do armazenamento local
-    setLoggedIn(false); // desabilita o login
-    setEmailLogged(''); // limpa o estado de e-mail de usuário logado
-    navigate('/signin', { replace: true }); // redireciona para página de login
   };
 
   // Manipulador para login
