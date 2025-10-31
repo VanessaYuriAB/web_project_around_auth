@@ -22,7 +22,7 @@ import eslintPluginPrettier from 'eslint-plugin-prettier';
 // Define a configuração principal do ESLint
 export default defineConfig([
   // Ignora pastas globais de build
-  globalIgnores(['dist']),
+  globalIgnores(['docs']),
   {
     // Arquivos aos quais essa configuração se aplica
     files: ['**/*.{js,jsx}'],
@@ -57,7 +57,7 @@ export default defineConfig([
     // Pastas/arquivos ignorados pelo ESLint
     ignores: [
       'node_modules/**',
-      'dist/**',
+      'docs/**',
       'build/**',
       'vendor/**',
       'public/**',
