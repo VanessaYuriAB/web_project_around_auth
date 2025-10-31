@@ -171,18 +171,35 @@ src/
 
 ### 🧠 Hooks, estados e contexto
 
-| Hook               | Utilização                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| `useState`         | Controle de `loggedIn`, `emailLogged`, `currentUser` e `checkingAuth`                 |
-| `useEffect`        | Verificação do token no carregamento inicial (`getTokenAndEmail`)                     |
-| `useContext`       | Acesso global a `AuthContext`                                                         |
-| `useRef`           | Reset e validação de formulários                                                      |
-| `useFormValidator` | Hook customizado para validação em tempo real                                         |
-| `useFormSubmit`    | Hook customizado para controle de envio assíncrono                                    |
-| `useLocation`      | Identifica a rota atual para renderizar o Header adequado (`/signin`, `/signup`, `/`) |
-| `useNavigate`      | Redirecionamento programático do usuário (ex.: após login ou logout)                  |
+| Hook               | Utilização                                                                                |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| `useState`         | Controle de `loggedIn`, `emailLogged`, `currentUser` e `checkingAuth`                     |
+| `useEffect`        | Verificação do token no carregamento inicial (`getTokenAndEmail`)                         |
+| `useContext`       | Acesso global a `AuthContext`                                                             |
+| `useRef`           | Reset e validação de formulários; controle de funções estáveis no `useEffect` de montagem |
+| `useFormValidator` | Hook customizado para validação em tempo real                                             |
+| `useFormSubmit`    | Hook customizado para controle de envio assíncrono                                        |
+| `useLocation`      | Identifica a rota atual para renderizar o Header adequado (`/signin`, `/signup`, `/`)     |
+| `useNavigate`      | Redirecionamento programático do usuário (ex.: após login ou logout)                      |
 
 📌 A autenticação é centralizada em `App.js`, que repassa callbacks (`handleLogin`, `handleRegistration`, `onSignOut`) e os estados `loggedIn` e `emailLogged` aos componentes filhos, via contexto e props.
+
+📌 Para evitar reexecuções indesejadas no `useEffect` de montagem (com `[]` como dependência), o projeto utiliza `useRef` para armazenar as funções `navigate` e `onSignOut`. Essa abordagem evita warnings do **ESLint** (`react-hooks/exhaustive-deps`) e garante que o efeito seja executado apenas uma vez, sem depender da referência dessas funções.
+
+```jsx
+const navigateRef = useRef(navigate);
+const onSignOutRef = useRef(onSignOut);
+```
+
+Essa prática é segura nesse contexto porque:
+
+- O efeito roda apenas na montagem;
+- As funções são estáveis e não devem mudar durante o ciclo de vida do componente;
+- Evita re-renderizações ou chamadas desnecessárias.
+
+A lógica está implementada em `App.jsx`, dentro do `useEffect` responsável pela verificação do token e montagem inicial da aplicação.
+
+💡 Essa técnica é útil em efeitos de montagem (`useEffect` com `[]`) quando funções externas são usadas, mas não devem ser adicionadas às dependências para evitar reexecuções indesejadas.
 
 ---
 
