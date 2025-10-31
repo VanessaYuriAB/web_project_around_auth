@@ -41,11 +41,10 @@ function Main({
     <main className="content page__content">
       <section className="content__profile">
         <div className="profile__photo">
-          {/* foto configurada pelo css, como background-image, antes de conectar com as infos da API*/}
           <img
             className="profile__img"
             src={currentUser.avatar}
-            alt=""
+            alt="Foto do perfil do usuário"
             aria-label="Foto de perfil"
           />
           <button
