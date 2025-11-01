@@ -2,6 +2,8 @@
 // Arquivo para interações de API relacionadas à autenticação
 // ----------------------------------------------------------
 
+import switchCase from '@utils/utils';
+
 // BASE_URL da API
 export const BASE_URL = 'https://se-register-api.en.tripleten-services.com/v1';
 
@@ -42,19 +44,16 @@ export const register = async (email, password) => {
       return data;
     }
 
-    // Tratamento de erros por status
+    // Tratamento de erros por status HTTP
     let message;
 
-    switch (res.status) {
-      case 400:
-        message = data.message || 'Um dos campos foi preenchido incorretamente';
-        break;
-      case 500:
-        message = 'Erro interno do servidor';
-        break;
-      default:
-        message = 'Erro desconhecido durante o cadastro'; // mensagem genérica para outros erros
-    }
+    message = switchCase({
+      resStatus: res.status,
+      dataMessage: data.message,
+      notFoundMsg: 'Um dos campos foi preenchido incorretamente',
+      // unauthorizedMsg omitido
+      defaulMsg: 'Erro desconhecido durante o cadastro',
+    });
 
     throw new Error(message);
   } catch (error) {
@@ -83,21 +82,14 @@ export const authorize = async (email, password) => {
 
     let message;
 
-    switch (res.status) {
-      case 400:
-        message = data.message || 'Um ou mais campos não foram fornecidos';
-        break;
-      case 401:
-        message =
-          data.message ||
-          'O usuário com o e-mail especificado não foi encontrado';
-        break;
-      case 500:
-        message = 'Erro interno do servidor';
-        break;
-      default:
-        message = 'Erro desconhecido durante o login';
-    }
+    message = switchCase({
+      resStatus: res.status,
+      dataMessage: data.message,
+      notFoundMsg: 'Um ou mais campos não foram fornecidos',
+      unauthorizedMsg:
+        'Não autorizado: o usuário com o e-mail especificado não foi encontrado ou a senha está incorreta',
+      defaulMsg: 'Erro desconhecido durante o login',
+    });
 
     throw new Error(message);
   } catch (error) {
@@ -126,20 +118,13 @@ export const getContent = async (token) => {
 
     let message;
 
-    switch (res.status) {
-      case 400:
-        message =
-          data.message || 'Token não fornecido ou fornecido em formato errado';
-        break;
-      case 401:
-        message = data.message || 'O token fornecido é inválido';
-        break;
-      case 500:
-        message = 'Erro interno do servidor';
-        break;
-      default:
-        message = 'Erro desconhecido durante a busca de informações de login';
-    }
+    message = switchCase({
+      resStatus: res.status,
+      dataMessage: data.message,
+      notFoundMsg: 'Token não fornecido ou fornecido em formato errado',
+      unauthorizedMsg: 'O token fornecido é inválido',
+      defaultMsg: 'Erro desconhecido durante a busca de informações de login',
+    });
 
     throw new Error(message);
   } catch (error) {
