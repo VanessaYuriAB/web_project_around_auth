@@ -161,7 +161,8 @@ src/
 │   ├── Api.js
 │   ├── auth.js
 │   ├── constants.js
-│   └── FormValidator.js
+│   ├── FormValidator.js
+│   └── utils.js
 │
 ├── index.css
 └── main.jsx
@@ -305,25 +306,31 @@ O `BrowserRouter` exige que o servidor esteja configurado para redirecionar toda
 
 ---
 
-## ✨ 5. Boas práticas implementadas (ES6+)
+## ✨ 5. Boas práticas implementadas (JavaScript moderno e arquitetura React)
 
-- Uso de arrow functions e desestruturação
+### 🟨 ES6+ (JavaScript moderno)
 
-- Modularização de lógica em hooks customizados
+- Uso de `arrow functions` e `desestruturação`
 
-- Async/await para requisições assíncronas
+- Uso de `async/await` para requisições assíncronas
 
-- Renderizações condicionais com `&&` e ternários
+- Tratamento de erros com `try/catch` em funções assíncronas (requisições à API)
 
-- Separação entre API pública (`auth.js`) e API privada (`Api.js`)
+### 🟦 Arquitetura e boas práticas em React
 
-- Validação declarativa via objetos de configuração, centralizados em `utils/constants.js`
+- Modularização de lógica em `hooks customizados`
 
-- `Context API` com `AuthContext` para compartilhamento de dados relacionados à autenticação de usuários entre os componentes
+- Renderizações condicionais com `&&` e operadores ternários
 
-- Funções `handlers` para lógica de submissão e controle de estado
+- Separação de resposabilidades entre API pública (`auth.js`) e API privada (`Api.js`)
 
-- `try/catch` para tratamento de erros em funções assíncronas (requisições à API)
+- Validação declarativa com objetos de configuração centralizados (`utils/constants.js`)
+
+- Uso de `Context API` (`AuthContext`) para gerenciamento de autenticação
+
+- Funções `handlers` para lógica de submissão de formulários e controle de estado
+
+- Centralização do tratamento de erros HTTP com função genérica `switchCase` para requisições relacionadas à autenticação (`utils/utils.js`)
 
 ---
 
