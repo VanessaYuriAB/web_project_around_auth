@@ -217,6 +217,8 @@ Base URL: `https://se-register-api.en.tripleten-services.com/v1`
 
 📌 A autenticação é gerenciada por um módulo dedicado (`auth.js`), enquanto as demais requisições de dados permanecem em `Api.js`, facilitando a manutenção e segurança do código.
 
+📌 O módulo `Api.js` foi **refatorado** para melhorar a legibilidade, reutilização e manutenção do código. Foi implementada a função genérica `_makeRequest`, responsável por padronizar chamadas à API. Essa classe foi originalmente criada no projeto anterior (_EUA Afora - React_) e **mantida neste projeto com melhorias**.
+
 ---
 
 ### 💾 Armazenamento local (JWT)
@@ -331,6 +333,8 @@ O `BrowserRouter` exige que o servidor esteja configurado para redirecionar toda
 - Funções `handlers` para lógica de submissão de formulários e controle de estado
 
 - Centralização do tratamento de erros HTTP com função genérica `switchCase` para requisições relacionadas à autenticação (`utils/utils.js`)
+
+- Refatoração da **classe `Api`**, com a implementação da função genérica `_makeRequest` para padronizar chamadas à API, reduzindo duplicação de código e facilitando a manutenção
 
 ---
 
