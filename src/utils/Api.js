@@ -10,6 +10,23 @@ class Api {
     this._headers = headers;
   }
 
+  // Método (privado) para realizar requisições à API
+  _makeRequest = async ({
+    endpoint,
+    headers = this._headers,
+    method,
+    requestBody,
+  }) => {
+    const options = {
+      headers,
+      method,
+      body: requestBody ? JSON.stringify(requestBody) : undefined, // adiciona e stringifica o corpo da requisição apenas se existir na requisição; se não, com a definição de undefined, o fetch ignora o body e a propriedade requestBody é completamente omitida do objeto options, não existindo na requisição
+    };
+
+    const res = await fetch(endpoint, options);
+    return this._checkResponse(res);
+  };
+
   // Método (privado) para tratamento das respostas dos métodos da classe
   _checkResponse = async (res) => {
     if (!res.ok) {
@@ -22,25 +39,25 @@ class Api {
 
   // Carrega as informações de usuário do servidor
   _getUserInfo = async () => {
-    const res = await fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers, // a solicitação GET é enviada com content-type,
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/users/me`,
+      method: 'GET', // a solicitação GET é enviada com content-type,
       // mas não interfere no resultado
+      // requestBody não é necessário para GET
     });
-    return this._checkResponse(res);
   };
 
   // Envia meus cards iniciais ao usuário do servidor
   createInitialCards = async () => {
     const promises = myCards.map(async (card) => {
-      const res = await fetch(`${this._baseUrl}/cards/`, {
+      return this._makeRequest({
+        endpoint: `${this._baseUrl}/cards/`,
         method: 'POST',
-        headers: this._headers,
-        body: JSON.stringify({
+        requestBody: {
           name: card.place, // o nome do input em myCards é place
           link: card.link,
-        }),
+        },
       });
-      return this._checkResponse(res);
     });
 
     return Promise.all(promises); // retorna uma Promise que só resolve quando
@@ -49,67 +66,62 @@ class Api {
 
   // Captura cards do usuário do servidor
   _getCards = async () => {
-    const res = await fetch(`${this._baseUrl}/cards/`, {
-      headers: this._headers,
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/cards/`,
+      method: 'GET',
     });
-    return this._checkResponse(res);
   };
 
   // Atualiza infos do perfil
   updateProfileInfo = async (dataProfile) => {
-    const res = await fetch(`${this._baseUrl}/users/me`, {
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/users/me`,
       method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
+      requestBody: {
         name: dataProfile.name,
         about: dataProfile.about,
-      }),
+      },
     });
-    return this._checkResponse(res);
   };
 
   // Atualiza foto do perfil
   updateProfileAvatar = async (dataPhoto) => {
-    const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/users/me/avatar`,
       method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
+      requestBody: {
         avatar: dataPhoto,
-      }),
+      },
     });
-    return this._checkResponse(res);
   };
 
   // Adiciona um novo cartão na conta do usuário do servidor
   createNewCard = async (dataCard) => {
-    const res = await fetch(`${this._baseUrl}/cards/`, {
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/cards/`,
       method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
+      requestBody: {
         name: dataCard.name, // o nome do input em NewCard.jsx é
         // place, mas o servidor espera name
         link: dataCard.link,
-      }),
+      },
     });
-    return this._checkResponse(res);
   };
 
   // Curte um cartão
   _likeCard = async (cardId) => {
-    const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/cards/${cardId}/likes`,
       method: 'PUT',
-      headers: this._headers,
     });
-    return this._checkResponse(res);
   };
 
   // Descurte um cartão
   _unlikeCard = async (cardId) => {
-    const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/cards/${cardId}/likes`,
       method: 'DELETE',
-      headers: this._headers,
     });
-    return this._checkResponse(res);
   };
 
   // Altera o status de curtir/descurtir um cartão
@@ -120,11 +132,10 @@ class Api {
 
   // Deleta um cartão do servidor
   deleteCard = async (cardId) => {
-    const res = await fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return this._makeRequest({
+      endpoint: `${this._baseUrl}/cards/${cardId}`,
       method: 'DELETE',
-      headers: this._headers,
     });
-    return this._checkResponse(res);
   };
 
   // Captura cartões somente após carregar as informações do usuário no servidor
