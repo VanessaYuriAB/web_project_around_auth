@@ -27,7 +27,7 @@ function EditProfile({ handleClosePopup }) {
     handleClosePopup, // onSuccess
     (error) => {
       console.error(
-        `Erro ao atualizar o perfil: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+        `Erro ao atualizar o perfil. \n Nome: ${error.name} \n Mensagem: ${error.message}`
       );
     } // onError
   );

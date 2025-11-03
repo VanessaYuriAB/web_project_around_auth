@@ -40,7 +40,7 @@ function NewCard({ handleClosePopup, popup }) {
     }, // onSuccess
     (error) => {
       console.error(
-        `Erro ao adicionar novo cartão: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+        `Erro ao adicionar novo cartão. \n Nome: ${error.name} \n Mensagem: ${error.message}`
       );
     } // onError
   );

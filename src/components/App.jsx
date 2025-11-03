@@ -108,7 +108,7 @@ function App() {
         setCards(cardsData);
       } catch (error) {
         console.error(
-          `Erro ao obter informações ou cartões do usuário: \n Erro: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+          `Erro ao obter informações ou cartões do usuário. \n Nome: ${error.name} \n Mensagem: ${error.message}`
         );
       }
     }
@@ -120,7 +120,7 @@ function App() {
         await fetchData();
       } catch (error) {
         console.error(
-          `Erro durante o mount: \n Erro: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+          `Erro durante o mount. \n Nome: ${error.name} \n Mensagem: ${error.message}`
         );
       } finally {
         if (isMounted) {
@@ -165,7 +165,7 @@ function App() {
       );
     } catch (error) {
       console.error(
-        `Erro ao curtir/descurtir o cartão: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+        `Erro ao curtir/descurtir o cartão. \n Nome: ${error.name} \n Mensagem: ${error.message}`
       );
     }
   };

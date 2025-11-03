@@ -12,7 +12,7 @@ function DeleteConfirmation({ handleClosePopup, handleCardDelete, card }) {
     handleClosePopup, // (onSuccess)
     (error) => {
       console.error(
-        `Erro ao excluir o cartão: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+        `Erro ao excluir o cartão. \n Nome: ${error.name} \n Mensagem: ${error.message}`
       );
     } // (onError)
   );
