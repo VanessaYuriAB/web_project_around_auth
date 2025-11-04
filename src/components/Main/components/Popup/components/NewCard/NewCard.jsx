@@ -24,8 +24,7 @@ function NewCard({ handleClosePopup, popup }) {
     if (popup && validatorRef.current) {
       validatorRef.current.resetValidation();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [popup]);
+  }, [popup, validatorRef]);
 
   // Envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError
   const { handleSubmit, isLoading } = useFormSubmit(
