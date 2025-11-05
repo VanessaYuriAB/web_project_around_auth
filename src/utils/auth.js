@@ -2,7 +2,11 @@
 // Arquivo para interações de API relacionadas à autenticação
 // ----------------------------------------------------------
 
-import switchCase from '@utils/utils';
+import {
+  makeAuthRequest,
+  getErrorMessageByStatus,
+  errorMessages,
+} from '@utils/utils.js';
 
 // BASE_URL da API
 export const BASE_URL = 'https://se-register-api.en.tripleten-services.com/v1';
@@ -10,13 +14,10 @@ export const BASE_URL = 'https://se-register-api.en.tripleten-services.com/v1';
 // POST - /signup — para registro de usuário
 export const register = async (email, password) => {
   try {
-    const res = await fetch(`${BASE_URL}/signup`, {
+    const res = await makeAuthRequest({
+      endpoint: `${BASE_URL}/signup`,
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
+      reqBody: { email, password },
     });
 
     // Tenta extrair o corpo JSON da resposta, mesmo em caso de erro.
@@ -45,14 +46,12 @@ export const register = async (email, password) => {
     }
 
     // Tratamento de erros por status HTTP
-    let message;
-
-    message = switchCase({
+    let message = getErrorMessageByStatus({
       resStatus: res.status,
       dataMessage: data.message,
-      notFoundMsg: 'Um dos campos foi preenchido incorretamente',
+      notFoundMsg: errorMessages.register.notFound,
       // unauthorizedMsg omitido
-      defaulMsg: 'Erro desconhecido durante o cadastro',
+      defaulMsg: errorMessages.register.default,
     });
 
     throw new Error(message);
@@ -65,13 +64,10 @@ export const register = async (email, password) => {
 // POST - /signin — para autorização de usuário
 export const authorize = async (email, password) => {
   try {
-    const res = await fetch(`${BASE_URL}/signin`, {
+    const res = await makeAuthRequest({
+      endpoint: `${BASE_URL}/signin`,
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
+      reqBody: { email, password },
     });
 
     const data = await res.json().catch(() => ({}));
@@ -80,15 +76,12 @@ export const authorize = async (email, password) => {
       return data;
     }
 
-    let message;
-
-    message = switchCase({
+    let message = getErrorMessageByStatus({
       resStatus: res.status,
       dataMessage: data.message,
-      notFoundMsg: 'Um ou mais campos não foram fornecidos',
-      unauthorizedMsg:
-        'Não autorizado: o usuário com o e-mail especificado não foi encontrado ou a senha está incorreta',
-      defaulMsg: 'Erro desconhecido durante o login',
+      notFoundMsg: errorMessages.authorize.notFound,
+      unauthorizedMsg: errorMessages.authorize.unauthorized,
+      defaulMsg: errorMessages.authorize.default,
     });
 
     throw new Error(message);
@@ -101,13 +94,10 @@ export const authorize = async (email, password) => {
 // GET - /users/me — para validar o token e obter o email (exibido no cabeçalho)
 export const getContent = async (token) => {
   try {
-    const res = await fetch(`${BASE_URL}/users/me`, {
+    const res = await makeAuthRequest({
+      token: token,
+      endpoint: `${BASE_URL}/users/me`,
       method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
     });
 
     const data = await res.json().catch(() => ({}));
@@ -116,14 +106,12 @@ export const getContent = async (token) => {
       return data;
     }
 
-    let message;
-
-    message = switchCase({
+    let message = getErrorMessageByStatus({
       resStatus: res.status,
       dataMessage: data.message,
-      notFoundMsg: 'Token não fornecido ou fornecido em formato errado',
-      unauthorizedMsg: 'O token fornecido é inválido',
-      defaultMsg: 'Erro desconhecido durante a busca de informações de login',
+      notFoundMsg: errorMessages.getContent.notFound,
+      unauthorizedMsg: errorMessages.getContent.unauthorized,
+      defaultMsg: errorMessages.getContent.default,
     });
 
     throw new Error(message);
