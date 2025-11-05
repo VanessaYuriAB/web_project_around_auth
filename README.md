@@ -217,6 +217,13 @@ Base URL: `https://se-register-api.en.tripleten-services.com/v1`
 
 📌 A autenticação é gerenciada por um módulo dedicado (`auth.js`), enquanto as demais requisições de dados permanecem em `Api.js`, facilitando a manutenção e segurança do código.
 
+📌 O módulo `auth.js` foi refatorado para melhorar a organização e a reutilização do código. Entre as melhorias estão:
+
+- Renomeação da função genérica de tratamento de erros para `getErrorMessageByStatus`, tornando sua finalidade mais clara.
+- Uso de uma variável dedicada para armazenar mensagens de erro, facilitando a manutenção.
+- Refatoração da variável `message` para maior legibilidade.
+- Implementação de uma função genérica para requisições à API de autenticação, promovendo reutilização e padronização.
+
 📌 O módulo `Api.js` foi **refatorado** para melhorar a legibilidade, reutilização e manutenção do código. Foi implementada a função genérica `_makeRequest`, responsável por padronizar chamadas à API. Essa classe foi originalmente criada no projeto anterior (_EUA Afora - React_) e **mantida neste projeto com melhorias**.
 
 ---
@@ -318,6 +325,10 @@ O `BrowserRouter` exige que o servidor esteja configurado para redirecionar toda
 
 - Tratamento de erros com `try/catch` em funções assíncronas (requisições à API)
 
+- **Centralização de mensagens de erro** em uma variável dedicada para facilitar manutenção
+
+- **Renomeação da função genérica de tratamento de erros** para `getErrorMessageByStatus`, tornando sua finalidade mais clara
+
 ### 🟦 Arquitetura e boas práticas em React
 
 - Modularização de lógica em `hooks customizados`
@@ -332,9 +343,11 @@ O `BrowserRouter` exige que o servidor esteja configurado para redirecionar toda
 
 - Funções `handlers` para lógica de submissão de formulários e controle de estado
 
-- Centralização do tratamento de erros HTTP com função genérica `switchCase` para requisições relacionadas à autenticação (`utils/utils.js`)
+- Centralização do tratamento de erros HTTP com função genérica `getErrorMessageByStatus` para requisições relacionadas à autenticação (`utils/utils.js`)
 
 - Refatoração da **classe `Api`**, com a implementação da função genérica `_makeRequest` para padronizar chamadas à API, reduzindo duplicação de código e facilitando a manutenção
+
+- **Implementação de função genérica para requisições de autenticação** no módulo `auth.js`, promovendo reutilização e clareza
 
 ---
 
