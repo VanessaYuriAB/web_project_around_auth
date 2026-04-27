@@ -12,6 +12,8 @@ Este projeto foi desenvolvido durante a **Sprint 17 (Autenticação e Autorizaç
 **segurança no front‑end**, **controle de rotas**, **persistência de sessão** e
 **experiência do usuário**.
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-acesse_aqui-lightblue)](https://vanessayuriab.github.io/web_project_around_auth/#/signin)
+
 ---
 
 ## 📌 Escopo do projeto
