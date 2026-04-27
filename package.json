@@ -10,8 +10,7 @@
     "lint:fix": "eslint . --ext js,jsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preview": "vite preview",
-    "deploy": "npm run build && scp -r -i ~/.ssh/id_ed25519 ./docs/* emaildavanessayuri@aroundtheusa.sevencomets.com:/home/emaildavanessayuri/web_project_around_frontend"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "19.2.1",
